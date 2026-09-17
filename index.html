@@ -3,39 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>電機技師｜工程數學微積分公式速查表</title>
+  <meta name="description" content="電機技師工程數學公式速查表：微積分、向量分析、微分方程、Laplace、Fourier。">
+  <title>電機技師｜工程數學公式速查表</title>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 
   <style>
     :root {
-      --bg: #eef3f8;
+      --bg: #edf3f9;
       --card: #ffffff;
       --text: #172033;
       --muted: #65738b;
       --primary: #0758a8;
-      --primary-soft: #e7f1fc;
+      --primary-soft: #e4f0fc;
       --accent: #e47613;
       --border: #d8e1ec;
       --success: #197044;
       --danger: #b93232;
-      --shadow: 0 8px 25px rgba(28, 48, 78, 0.08);
+      --shadow: 0 8px 24px rgba(28, 48, 78, 0.08);
     }
 
     body.dark {
       --bg: #101723;
       --card: #182232;
       --text: #edf3fb;
-      --muted: #aab7ca;
-      --primary: #69b0ff;
-      --primary-soft: #213b5b;
-      --accent: #ffad5a;
+      --muted: #afbdd0;
+      --primary: #72b8ff;
+      --primary-soft: #203b5d;
+      --accent: #ffb15c;
       --border: #334256;
-      --success: #63d298;
-      --danger: #ff8181;
-      --shadow: 0 8px 25px rgba(0, 0, 0, 0.22);
+      --success: #6ad69c;
+      --danger: #ff8b8b;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
     }
 
     * {
@@ -50,66 +50,68 @@
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font-family:
-        "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
       line-height: 1.65;
       transition: background 0.25s, color 0.25s;
     }
 
     header {
-      background: linear-gradient(135deg, #063c75, #0875c9);
-      color: white;
       padding: 34px 20px 28px;
+      color: white;
+      background: linear-gradient(135deg, #063c75, #0875c9);
     }
 
     .header-inner,
-    .container {
-      width: min(1180px, calc(100% - 32px));
+    .container,
+    .toolbar-inner {
+      width: min(1200px, calc(100% - 32px));
       margin: auto;
     }
 
     h1 {
-      margin: 0 0 8px;
+      margin: 0 0 7px;
       font-size: clamp(1.65rem, 4vw, 2.45rem);
       line-height: 1.3;
     }
 
     .subtitle {
       margin: 0;
-      opacity: 0.92;
-      font-size: 1rem;
+      opacity: 0.94;
     }
 
-    .header-badges {
+    .header-badges,
+    .priority-guide,
+    .button-group {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+    }
+
+    .header-badges {
       margin-top: 16px;
     }
 
     .header-badge {
       padding: 5px 11px;
-      border: 1px solid rgba(255,255,255,0.36);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 999px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       font-size: 0.88rem;
     }
 
     .toolbar {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 50;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
       background: color-mix(in srgb, var(--card) 93%, transparent);
       backdrop-filter: blur(9px);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 0;
     }
 
     .toolbar-inner {
-      width: min(1180px, calc(100% - 32px));
-      margin: auto;
       display: grid;
-      grid-template-columns: minmax(190px, 1fr) auto;
+      grid-template-columns: minmax(210px, 1fr) auto;
       gap: 10px;
     }
 
@@ -119,21 +121,15 @@
       padding: 9px 14px;
       border: 1px solid var(--border);
       border-radius: 10px;
+      outline: none;
       background: var(--card);
       color: var(--text);
       font-size: 1rem;
-      outline: none;
     }
 
     .search:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 3px var(--primary-soft);
-    }
-
-    .button-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
     }
 
     button {
@@ -145,11 +141,13 @@
       color: var(--text);
       font-weight: 700;
       cursor: pointer;
+      transition: 0.15s;
     }
 
     button:hover {
       border-color: var(--primary);
       color: var(--primary);
+      transform: translateY(-1px);
     }
 
     .container {
@@ -157,33 +155,43 @@
       padding-bottom: 60px;
     }
 
-    .notice {
-      margin-bottom: 18px;
-      padding: 14px 16px;
-      border-left: 5px solid var(--accent);
-      border-radius: 8px;
+    .notice,
+    .memory-box {
+      padding: 15px 17px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       background: var(--card);
       box-shadow: var(--shadow);
     }
 
-    .priority-guide {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 0.92rem;
-      color: var(--muted);
+    .notice {
+      margin-bottom: 18px;
+      border-left: 5px solid var(--accent);
     }
 
-    .star {
+    .priority-guide {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .star,
+    .priority {
       color: var(--accent);
       font-weight: 900;
+    }
+
+    #resultCount {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
     }
 
     nav {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding: 2px 0 15px;
+      padding: 3px 0 15px;
       scrollbar-width: thin;
     }
 
@@ -194,14 +202,14 @@
       border-radius: 999px;
       background: var(--card);
       color: var(--primary);
-      text-decoration: none;
       font-size: 0.9rem;
       font-weight: 700;
+      text-decoration: none;
     }
 
     section {
-      margin: 20px 0 30px;
-      scroll-margin-top: 85px;
+      margin: 20px 0 31px;
+      scroll-margin-top: 90px;
     }
 
     .section-title {
@@ -211,18 +219,18 @@
       margin: 0 0 13px;
       padding-bottom: 8px;
       border-bottom: 3px solid var(--primary);
-      font-size: 1.35rem;
+      font-size: 1.38rem;
     }
 
     .section-number {
       display: grid;
+      width: 32px;
+      height: 32px;
       place-items: center;
-      width: 31px;
-      height: 31px;
       border-radius: 50%;
       background: var(--primary);
-      color: var(--card);
-      font-size: 0.9rem;
+      color: white;
+      font-size: 0.86rem;
     }
 
     .grid {
@@ -233,8 +241,8 @@
 
     .card {
       position: relative;
+      min-height: 130px;
       overflow: hidden;
-      min-height: 138px;
       padding: 15px 16px;
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -244,39 +252,37 @@
     }
 
     .card:hover {
-      transform: translateY(-2px);
       border-color: var(--primary);
+      transform: translateY(-2px);
     }
 
     .card.hidden {
       display: none;
     }
 
+    .wide {
+      grid-column: 1 / -1;
+    }
+
     .card-title {
       display: flex;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       color: var(--primary);
       font-weight: 800;
     }
 
-    .priority {
-      flex: 0 0 auto;
-      color: var(--accent);
-      letter-spacing: -1px;
-    }
-
     .formula {
+      min-height: 35px;
       overflow-x: auto;
-      padding: 10px 4px;
+      padding: 7px 4px;
       text-align: center;
-      font-size: 1.04rem;
     }
 
     .formula.covered {
-      min-height: 55px;
       display: grid;
+      min-height: 54px;
       place-items: center;
       border-radius: 8px;
       background: repeating-linear-gradient(
@@ -286,19 +292,18 @@
         transparent 8px,
         transparent 16px
       );
-      color: transparent;
-      user-select: none;
       cursor: pointer;
-    }
-
-    .formula.covered::after {
-      content: "點一下顯示公式";
-      color: var(--primary);
-      font-weight: 800;
+      user-select: none;
     }
 
     .formula.covered > * {
       display: none;
+    }
+
+    .formula.covered::after {
+      color: var(--primary);
+      content: "點一下顯示公式";
+      font-weight: 800;
     }
 
     .note {
@@ -309,9 +314,9 @@
       font-size: 0.88rem;
     }
 
-    .warning {
-      color: var(--danger);
-      font-weight: 700;
+    .note ol {
+      margin: 5px 0 0;
+      padding-left: 20px;
     }
 
     .tip {
@@ -319,26 +324,18 @@
       font-weight: 700;
     }
 
-    .wide {
-      grid-column: 1 / -1;
-    }
-
-    .memory-box {
-      padding: 15px 17px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--card);
+    .warning {
+      color: var(--danger);
+      font-weight: 700;
     }
 
     .memory-box ol {
-      margin-bottom: 0;
+      margin: 0;
       padding-left: 22px;
     }
 
-    #resultCount {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 0.9rem;
+    .memory-box li {
+      margin: 8px 0;
     }
 
     footer {
@@ -349,7 +346,7 @@
       font-size: 0.88rem;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 800px) {
       .toolbar-inner {
         grid-template-columns: 1fr;
       }
@@ -394,8 +391,8 @@
       }
 
       section {
-        break-inside: avoid;
         margin: 12px 0;
+        break-inside: avoid;
       }
 
       .grid {
@@ -411,7 +408,8 @@
       }
 
       .formula.covered {
-        color: black;
+        display: block;
+        min-height: 0;
         background: white;
       }
 
@@ -429,11 +427,13 @@
 <body>
   <header>
     <div class="header-inner">
-      <h1>電機技師｜工程數學微積分公式速查表</h1>
-      <p class="subtitle">考前背誦版：微積分、向量分析、微分方程、Laplace 與 Fourier</p>
+      <h1>電機技師｜工程數學公式速查表</h1>
+      <p class="subtitle">微積分、向量分析、ODE、PDE、Laplace、Fourier 考前總複習版</p>
+
       <div class="header-badges">
         <span class="header-badge">★★★ 優先背誦</span>
-        <span class="header-badge">可遮蔽公式自我測驗</span>
+        <span class="header-badge">遮蔽公式自我測驗</span>
+        <span class="header-badge">深色模式記憶</span>
         <span class="header-badge">支援列印</span>
       </div>
     </div>
@@ -445,9 +445,12 @@
         id="searchInput"
         class="search"
         type="search"
-        placeholder="搜尋：微分、積分、Laplace、Green…"
+        placeholder="搜尋：微分、Green、Laplace、波動方程、摺積…"
         aria-label="搜尋公式">
+
       <div class="button-group">
+        <button id="highPriorityButton">只看 ★★★</button>
+        <button id="resetFilterButton">重設篩選</button>
         <button id="coverButton">遮蔽全部</button>
         <button id="showButton">顯示全部</button>
         <button id="darkButton">深色模式</button>
@@ -459,12 +462,12 @@
   <main class="container">
     <div class="notice">
       <strong>建議讀法：</strong>
-      第一輪先背 ★★★，第二輪背 ★★，最後補充 ★。
-      公式中的常數由題目初始條件或邊界條件決定。
+      第一輪先背 ★★★，第二輪補 ★★，最後整理 ★。
+      工程數學不能只背公式，請搭配歷屆試題訓練「看到題型就知道使用哪一種方法」。
       <div class="priority-guide">
-        <span><b class="star">★★★</b> 極常考</span>
-        <span><b class="star">★★</b> 常考</span>
-        <span><b class="star">★</b> 補充</span>
+        <span><b class="star">★★★</b> 極常考、優先背誦</span>
+        <span><b class="star">★★</b> 常考、第二輪補強</span>
+        <span><b class="star">★</b> 延伸補充</span>
       </div>
       <div id="resultCount"></div>
     </div>
@@ -472,500 +475,36 @@
     <nav>
       <a href="#limits">極限</a>
       <a href="#derivatives">微分</a>
-      <a href="#taylor">級數展開</a>
+      <a href="#series">級數</a>
       <a href="#integrals">積分</a>
       <a href="#multivariable">多變數</a>
       <a href="#vector">向量分析</a>
-      <a href="#ode">微分方程</a>
+      <a href="#ode">ODE</a>
+      <a href="#pde">PDE</a>
       <a href="#laplace">Laplace</a>
-      <a href="#fourier">Fourier</a>
+      <a href="#fourier">Fourier 級數</a>
+      <a href="#fourier-transform">Fourier Transform</a>
+      <a href="#strategy">解題流程</a>
     </nav>
 
-    <section id="limits">
+    <div id="content"></div>
+
+    <section id="strategy">
       <h2 class="section-title">
-        <span class="section-number">1</span>極限與等價無窮小
+        <span class="section-number">!</span>工程數學解題判斷流程
       </h2>
-      <div class="grid">
-        <article class="card" data-keywords="極限 sin x over x">
-          <div class="card-title">基本三角極限 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\lim_{x\to0}\frac{\sin x}{x}=1"></div>
-          <div class="note">角度必須使用弧度。</div>
-        </article>
 
-        <article class="card" data-keywords="極限 cos">
-          <div class="card-title">餘弦極限 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12"></div>
-        </article>
-
-        <article class="card" data-keywords="指數 e 極限">
-          <div class="card-title">自然指數定義 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\lim_{x\to0}(1+x)^{1/x}=e"></div>
-          <div class="note">等價形式：n 趨近無限大時，一加一除以 n 的 n 次方趨近 e。</div>
-        </article>
-
-        <article class="card" data-keywords="等價無窮小 small angle">
-          <div class="card-title">常用等價無窮小 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\sin x\sim x,\quad \tan x\sim x,\quad 1-\cos x\sim\frac{x^2}{2}"></div>
-          <div class="note">只適用於 x 趨近 0 的乘除型極限，不可任意用於加減。</div>
-        </article>
-
-        <article class="card" data-keywords="ln log exp 等價無窮小">
-          <div class="card-title">指數與對數等價式 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="e^x-1\sim x,\quad \ln(1+x)\sim x,\quad a^x-1\sim x\ln a"></div>
-        </article>
-
-        <article class="card" data-keywords="洛必達 lhopital">
-          <div class="card-title">洛必達法則 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\lim\frac{f(x)}{g(x)}=\lim\frac{f'(x)}{g'(x)}"></div>
-          <div class="note">限於零比零或無限大比無限大型，且右側極限存在。</div>
-        </article>
-      </div>
-    </section>
-
-    <section id="derivatives">
-      <h2 class="section-title">
-        <span class="section-number">2</span>微分公式
-      </h2>
-      <div class="grid">
-        <article class="card" data-keywords="乘法 商法則 chain rule 鏈鎖律">
-          <div class="card-title">三大運算法則 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="(uv)'=u'v+uv'"></div>
-          <div class="formula" data-tex="\left(\frac uv\right)'=\frac{u'v-uv'}{v^2}"></div>
-          <div class="formula" data-tex="\frac{d}{dx}f(g(x))=f'(g(x))g'(x)"></div>
-        </article>
-
-        <article class="card" data-keywords="冪次 power">
-          <div class="card-title">冪次函數 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\frac{d}{dx}x^n=nx^{n-1}"></div>
-          <div class="formula" data-tex="\frac{d}{dx}u^n=nu^{n-1}u'"></div>
-        </article>
-
-        <article class="card" data-keywords="指數 exponential e a">
-          <div class="card-title">指數函數 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\frac{d}{dx}e^x=e^x,\qquad \frac{d}{dx}a^x=a^x\ln a"></div>
-          <div class="formula" data-tex="\frac{d}{dx}e^{u}=e^u u'"></div>
-        </article>
-
-        <article class="card" data-keywords="對數 ln log">
-          <div class="card-title">對數函數 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\frac{d}{dx}\ln x=\frac1x,\qquad \frac{d}{dx}\ln|u|=\frac{u'}u"></div>
-          <div class="formula" data-tex="\frac{d}{dx}\log_a x=\frac{1}{x\ln a}"></div>
-        </article>
-
-        <article class="card" data-keywords="三角函數 sin cos tan sec">
-          <div class="card-title">三角函數微分 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="(\sin x)'=\cos x,\qquad(\cos x)'=-\sin x"></div>
-          <div class="formula" data-tex="(\tan x)'=\sec^2x,\qquad(\cot x)'=-\csc^2x"></div>
-          <div class="formula" data-tex="(\sec x)'=\sec x\tan x"></div>
-        </article>
-
-        <article class="card" data-keywords="反三角 inverse arcsin arctan">
-          <div class="card-title">反三角函數微分 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="\frac{d}{dx}\sin^{-1}x=\frac1{\sqrt{1-x^2}}"></div>
-          <div class="formula" data-tex="\frac{d}{dx}\tan^{-1}x=\frac1{1+x^2}"></div>
-          <div class="formula" data-tex="\frac{d}{dx}\cos^{-1}x=-\frac1{\sqrt{1-x^2}}"></div>
-        </article>
-
-        <article class="card" data-keywords="雙曲線 sinh cosh tanh">
-          <div class="card-title">雙曲函數 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="(\sinh x)'=\cosh x,\qquad(\cosh x)'=\sinh x"></div>
-          <div class="formula" data-tex="\cosh^2x-\sinh^2x=1"></div>
-        </article>
-
-        <article class="card" data-keywords="隱函數 implicit">
-          <div class="card-title">隱函數微分 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="F(x,y)=0\quad\Rightarrow\quad\frac{dy}{dx}=-\frac{F_x}{F_y}"></div>
-        </article>
-
-        <article class="card" data-keywords="極值 最大 最小 二階導數">
-          <div class="card-title">極值判定 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="f'(x_0)=0"></div>
-          <div class="formula" data-tex="f''(x_0)>0\Rightarrow\text{極小},\qquad f''(x_0)<0\Rightarrow\text{極大}"></div>
-        </article>
-      </div>
-    </section>
-
-    <section id="taylor">
-      <h2 class="section-title">
-        <span class="section-number">3</span>Taylor 與 Maclaurin 展開
-      </h2>
-      <div class="grid">
-        <article class="card wide" data-keywords="Taylor 泰勒 Maclaurin 麥克勞林">
-          <div class="card-title">Taylor 展開式 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="f(x)=\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^n"></div>
-          <div class="note">取 a 等於 0，即為 Maclaurin 展開。</div>
-        </article>
-
-        <article class="card" data-keywords="exponential series e x">
-          <div class="card-title">指數函數展開 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="e^x=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots"></div>
-        </article>
-
-        <article class="card" data-keywords="sin series">
-          <div class="card-title">正弦展開 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\sin x=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots"></div>
-        </article>
-
-        <article class="card" data-keywords="cos series">
-          <div class="card-title">餘弦展開 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\cos x=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots"></div>
-        </article>
-
-        <article class="card" data-keywords="ln series log">
-          <div class="card-title">自然對數展開 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="\ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\cdots"></div>
-          <div class="note">收斂範圍需另外檢查。</div>
-        </article>
-
-        <article class="card" data-keywords="binomial 二項式">
-          <div class="card-title">廣義二項式 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="(1+x)^\alpha=1+\alpha x+\frac{\alpha(\alpha-1)}{2!}x^2+\cdots"></div>
-        </article>
-
-        <article class="card" data-keywords="Euler formula 歐拉公式 complex">
-          <div class="card-title">Euler 公式 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="e^{j\theta}=\cos\theta+j\sin\theta"></div>
-          <div class="formula" data-tex="\cos\theta=\frac{e^{j\theta}+e^{-j\theta}}2,\quad \sin\theta=\frac{e^{j\theta}-e^{-j\theta}}{2j}"></div>
-        </article>
-      </div>
-    </section>
-
-    <section id="integrals">
-      <h2 class="section-title">
-        <span class="section-number">4</span>積分公式與技巧
-      </h2>
-      <div class="grid">
-        <article class="card" data-keywords="冪次 積分 power">
-          <div class="card-title">冪次積分 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\int x^n\,dx=\frac{x^{n+1}}{n+1}+C,\qquad n\ne-1"></div>
-        </article>
-
-        <article class="card" data-keywords="一除以 x ln 積分">
-          <div class="card-title">對數型積分 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\int\frac1x\,dx=\ln|x|+C"></div>
-          <div class="formula" data-tex="\int\frac{f'(x)}{f(x)}\,dx=\ln|f(x)|+C"></div>
-        </article>
-
-        <article class="card" data-keywords="指數 積分 exponential">
-          <div class="card-title">指數函數積分 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\int e^{ax}\,dx=\frac1a e^{ax}+C"></div>
-          <div class="formula" data-tex="\int a^x\,dx=\frac{a^x}{\ln a}+C"></div>
-        </article>
-
-        <article class="card" data-keywords="sin cos tan sec 積分">
-          <div class="card-title">三角函數積分 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\int\sin ax\,dx=-\frac1a\cos ax+C"></div>
-          <div class="formula" data-tex="\int\cos ax\,dx=\frac1a\sin ax+C"></div>
-          <div class="formula" data-tex="\int\sec^2 ax\,dx=\frac1a\tan ax+C"></div>
-        </article>
-
-        <article class="card" data-keywords="反正切 反三角 積分">
-          <div class="card-title">反三角型積分 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\int\frac{dx}{x^2+a^2}=\frac1a\tan^{-1}\frac xa+C"></div>
-          <div class="formula" data-tex="\int\frac{dx}{\sqrt{a^2-x^2}}=\sin^{-1}\frac xa+C"></div>
-        </article>
-
-        <article class="card" data-keywords="分部積分 integration by parts">
-          <div class="card-title">分部積分 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\int u\,dv=uv-\int v\,du"></div>
-          <div class="note"><span class="tip">選 u 口訣：</span>反三角、對數、代數、三角、指數。</div>
-        </article>
-
-        <article class="card" data-keywords="換元法 substitution">
-          <div class="card-title">換元積分 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="u=g(x)\quad\Rightarrow\quad\int f(g(x))g'(x)\,dx=\int f(u)\,du"></div>
-        </article>
-
-        <article class="card" data-keywords="三角恆等式 半角 平方">
-          <div class="card-title">積分常用三角恆等式 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\sin^2x=\frac{1-\cos2x}{2},\qquad\cos^2x=\frac{1+\cos2x}{2}"></div>
-          <div class="formula" data-tex="\sin x\cos x=\frac12\sin2x"></div>
-        </article>
-
-        <article class="card" data-keywords="指數乘三角 積分">
-          <div class="card-title">指數乘正弦積分 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="\int e^{ax}\sin bx\,dx=\frac{e^{ax}}{a^2+b^2}(a\sin bx-b\cos bx)+C"></div>
-        </article>
-
-        <article class="card" data-keywords="指數乘餘弦 積分">
-          <div class="card-title">指數乘餘弦積分 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="\int e^{ax}\cos bx\,dx=\frac{e^{ax}}{a^2+b^2}(a\cos bx+b\sin bx)+C"></div>
-        </article>
-
-        <article class="card" data-keywords="微積分基本定理 fundamental theorem">
-          <div class="card-title">微積分基本定理 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\frac{d}{dx}\int_a^x f(t)\,dt=f(x)"></div>
-          <div class="formula" data-tex="\int_a^b f'(x)\,dx=f(b)-f(a)"></div>
-        </article>
-
-        <article class="card" data-keywords="gamma function Gamma 階乘">
-          <div class="card-title">Gamma 函數 <span class="priority">★</span></div>
-          <div class="formula" data-tex="\Gamma(n)=\int_0^\infty x^{n-1}e^{-x}\,dx=(n-1)!"></div>
-        </article>
-      </div>
-    </section>
-
-    <section id="multivariable">
-      <h2 class="section-title">
-        <span class="section-number">5</span>多變數微積分
-      </h2>
-      <div class="grid">
-        <article class="card" data-keywords="全微分 total differential partial 偏微分">
-          <div class="card-title">全微分 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="dz=\frac{\partial z}{\partial x}dx+\frac{\partial z}{\partial y}dy"></div>
-        </article>
-
-        <article class="card" data-keywords="多變數 chain rule 鏈鎖律">
-          <div class="card-title">多變數鏈鎖律 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\frac{dz}{dt}=\frac{\partial z}{\partial x}\frac{dx}{dt}+\frac{\partial z}{\partial y}\frac{dy}{dt}"></div>
-        </article>
-
-        <article class="card" data-keywords="二變數 極值 Hessian">
-          <div class="card-title">二變數極值判定 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="D=f_{xx}f_{yy}-(f_{xy})^2"></div>
-          <div class="note">
-            D 大於 0 且二階 x 偏導大於 0：極小；D 大於 0 且二階 x 偏導小於 0：極大；D 小於 0：鞍點。
-          </div>
-        </article>
-
-        <article class="card" data-keywords="Jacobian 雅可比 座標變換">
-          <div class="card-title">Jacobian <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\frac{\partial(x,y)}{\partial(u,v)}=\begin{vmatrix}x_u&amp;x_v\\y_u&amp;y_v\end{vmatrix}"></div>
-          <div class="formula" data-tex="dx\,dy=\left|\frac{\partial(x,y)}{\partial(u,v)}\right|du\,dv"></div>
-        </article>
-
-        <article class="card" data-keywords="polar cylindrical spherical 極座標 柱座標 球座標">
-          <div class="card-title">常用面積與體積元素 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="dA=r\,dr\,d\theta"></div>
-          <div class="formula" data-tex="dV_{\mathrm{cyl}}=r\,dr\,d\theta\,dz"></div>
-          <div class="formula" data-tex="dV_{\mathrm{sph}}=r^2\sin\theta\,dr\,d\theta\,d\phi"></div>
-        </article>
-
-        <article class="card" data-keywords="Lagrange multiplier 拉格朗日">
-          <div class="card-title">Lagrange 乘數法 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="\nabla f=\lambda\nabla g"></div>
-          <div class="note">用於具有限制條件 g 等於常數的極值問題。</div>
-        </article>
-      </div>
-    </section>
-
-    <section id="vector">
-      <h2 class="section-title">
-        <span class="section-number">6</span>向量分析與電磁學常用定理
-      </h2>
-      <div class="grid">
-        <article class="card" data-keywords="gradient 梯度 nabla">
-          <div class="card-title">梯度 Gradient <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\nabla f=\frac{\partial f}{\partial x}\mathbf a_x+\frac{\partial f}{\partial y}\mathbf a_y+\frac{\partial f}{\partial z}\mathbf a_z"></div>
-          <div class="note">方向為函數增加最快方向。</div>
-        </article>
-
-        <article class="card" data-keywords="divergence 散度">
-          <div class="card-title">散度 Divergence <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\nabla\cdot\mathbf A=\frac{\partial A_x}{\partial x}+\frac{\partial A_y}{\partial y}+\frac{\partial A_z}{\partial z}"></div>
-        </article>
-
-        <article class="card" data-keywords="curl 旋度">
-          <div class="card-title">旋度 Curl <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\nabla\times\mathbf A=\begin{vmatrix}\mathbf a_x&amp;\mathbf a_y&amp;\mathbf a_z\\\partial_x&amp;\partial_y&amp;\partial_z\\A_x&amp;A_y&amp;A_z\end{vmatrix}"></div>
-        </article>
-
-        <article class="card" data-keywords="Laplacian 拉普拉斯">
-          <div class="card-title">Laplacian <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\nabla^2f=\frac{\partial^2f}{\partial x^2}+\frac{\partial^2f}{\partial y^2}+\frac{\partial^2f}{\partial z^2}"></div>
-        </article>
-
-        <article class="card" data-keywords="vector identity 向量恆等式">
-          <div class="card-title">重要向量恆等式 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\nabla\times(\nabla f)=0"></div>
-          <div class="formula" data-tex="\nabla\cdot(\nabla\times\mathbf A)=0"></div>
-        </article>
-
-        <article class="card" data-keywords="Green 格林定理">
-          <div class="card-title">Green 定理 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\oint_C(P\,dx+Q\,dy)=\iint_D\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)dA"></div>
-        </article>
-
-        <article class="card" data-keywords="Gauss divergence theorem 高斯 散度定理">
-          <div class="card-title">Gauss 散度定理 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\oiint_S\mathbf A\cdot d\mathbf S=\iiint_V(\nabla\cdot\mathbf A)\,dV"></div>
-          <div class="note">封閉曲面通量等於體積內散度積分。</div>
-        </article>
-
-        <article class="card" data-keywords="Stokes 史托克斯">
-          <div class="card-title">Stokes 定理 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\oint_C\mathbf A\cdot d\mathbf l=\iint_S(\nabla\times\mathbf A)\cdot d\mathbf S"></div>
-        </article>
-
-        <article class="card wide" data-keywords="Green Gauss Stokes 記憶">
-          <div class="card-title">三大定理記憶法 <span class="priority">★★★</span></div>
-          <div class="note">
-            <b>Green：</b>平面邊界線積分 ↔ 平面區域積分；
-            <b>Stokes：</b>邊界線積分 ↔ 曲面旋度積分；
-            <b>Gauss：</b>封閉曲面通量 ↔ 體積散度積分。
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="ode">
-      <h2 class="section-title">
-        <span class="section-number">7</span>常微分方程式
-      </h2>
-      <div class="grid">
-        <article class="card" data-keywords="一階可分離 separable">
-          <div class="card-title">可分離變數 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\frac{dy}{dx}=g(x)h(y)\quad\Rightarrow\quad\int\frac{dy}{h(y)}=\int g(x)\,dx+C"></div>
-        </article>
-
-        <article class="card" data-keywords="一階線性 integrating factor 積分因子">
-          <div class="card-title">一階線性方程 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="y'+P(x)y=Q(x)"></div>
-          <div class="formula" data-tex="\mu(x)=e^{\int P(x)\,dx},\qquad y=\frac1\mu\left(\int\mu Q\,dx+C\right)"></div>
-        </article>
-
-        <article class="card" data-keywords="Bernoulli 柏努力 微分方程">
-          <div class="card-title">Bernoulli 方程 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="y'+Py=Qy^n,\qquad v=y^{1-n}"></div>
-        </article>
-
-        <article class="card" data-keywords="二階常係數 characteristic 特徵方程">
-          <div class="card-title">二階常係數齊次方程 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="ay''+by'+cy=0\quad\Rightarrow\quad ar^2+br+c=0"></div>
-        </article>
-
-        <article class="card" data-keywords="相異實根 real roots">
-          <div class="card-title">相異實根 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="r_1\ne r_2\quad\Rightarrow\quad y=C_1e^{r_1x}+C_2e^{r_2x}"></div>
-        </article>
-
-        <article class="card" data-keywords="重根 repeated root">
-          <div class="card-title">重根 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="r_1=r_2=r\quad\Rightarrow\quad y=(C_1+C_2x)e^{rx}"></div>
-        </article>
-
-        <article class="card" data-keywords="複數根 complex root">
-          <div class="card-title">共軛複數根 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="r=\alpha\pm j\beta\quad\Rightarrow\quad y=e^{\alpha x}(C_1\cos\beta x+C_2\sin\beta x)"></div>
-        </article>
-
-        <article class="card" data-keywords="非齊次 particular complementary">
-          <div class="card-title">非齊次通解 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="y=y_c+y_p"></div>
-          <div class="note">齊次解加上特解；待定係數法遇到重複型態時，試解需乘上適當次方的 x。</div>
-        </article>
-
-        <article class="card" data-keywords="Euler Cauchy equidimensional">
-          <div class="card-title">Euler–Cauchy 方程 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="ax^2y''+bxy'+cy=0,\qquad y=x^m"></div>
-        </article>
-      </div>
-    </section>
-
-    <section id="laplace">
-      <h2 class="section-title">
-        <span class="section-number">8</span>Laplace 轉換
-      </h2>
-      <div class="grid">
-        <article class="card" data-keywords="Laplace definition 定義">
-          <div class="card-title">Laplace 定義 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\mathcal L\{f(t)\}=F(s)=\int_0^\infty e^{-st}f(t)\,dt"></div>
-        </article>
-
-        <article class="card" data-keywords="Laplace 1 t power">
-          <div class="card-title">基本轉換 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\mathcal L\{1\}=\frac1s,\qquad\mathcal L\{t^n\}=\frac{n!}{s^{n+1}}"></div>
-        </article>
-
-        <article class="card" data-keywords="Laplace exponential 指數">
-          <div class="card-title">指數函數 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\mathcal L\{e^{at}\}=\frac1{s-a}"></div>
-        </article>
-
-        <article class="card" data-keywords="Laplace sin cos">
-          <div class="card-title">正弦與餘弦 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\mathcal L\{\sin\omega t\}=\frac{\omega}{s^2+\omega^2}"></div>
-          <div class="formula" data-tex="\mathcal L\{\cos\omega t\}=\frac{s}{s^2+\omega^2}"></div>
-        </article>
-
-        <article class="card" data-keywords="Laplace sinh cosh hyperbolic">
-          <div class="card-title">雙曲函數 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="\mathcal L\{\sinh at\}=\frac{a}{s^2-a^2},\qquad\mathcal L\{\cosh at\}=\frac{s}{s^2-a^2}"></div>
-        </article>
-
-        <article class="card" data-keywords="Laplace derivative 微分 初始值">
-          <div class="card-title">導數轉換 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\mathcal L\{f'(t)\}=sF(s)-f(0)"></div>
-          <div class="formula" data-tex="\mathcal L\{f''(t)\}=s^2F(s)-sf(0)-f'(0)"></div>
-        </article>
-
-        <article class="card" data-keywords="Laplace integration 積分">
-          <div class="card-title">積分轉換 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="\mathcal L\left\{\int_0^t f(\tau)\,d\tau\right\}=\frac{F(s)}s"></div>
-        </article>
-
-        <article class="card" data-keywords="first shifting s shift 平移">
-          <div class="card-title">第一平移定理 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\mathcal L\{e^{at}f(t)\}=F(s-a)"></div>
-        </article>
-
-        <article class="card" data-keywords="unit step heaviside second shifting">
-          <div class="card-title">單位階躍與第二平移 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="\mathcal L\{u(t-a)f(t-a)\}=e^{-as}F(s)"></div>
-        </article>
-
-        <article class="card" data-keywords="convolution 摺積 卷積">
-          <div class="card-title">摺積定理 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="(f*g)(t)=\int_0^t f(\tau)g(t-\tau)\,d\tau"></div>
-          <div class="formula" data-tex="\mathcal L\{f*g\}=F(s)G(s)"></div>
-        </article>
-
-        <article class="card" data-keywords="initial final value theorem 初值 終值">
-          <div class="card-title">初值與終值定理 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="f(0^+)=\lim_{s\to\infty}sF(s)"></div>
-          <div class="formula" data-tex="f(\infty)=\lim_{s\to0}sF(s)"></div>
-          <div class="note"><span class="warning">終值定理：</span>需先確認系統穩定及極點條件。</div>
-        </article>
-      </div>
-    </section>
-
-    <section id="fourier">
-      <h2 class="section-title">
-        <span class="section-number">9</span>Fourier 級數
-      </h2>
-      <div class="grid">
-        <article class="card wide" data-keywords="Fourier series 傅立葉級數">
-          <div class="card-title">週期 2L 的 Fourier 級數 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="f(x)=\frac{a_0}{2}+\sum_{n=1}^{\infty}\left[a_n\cos\left(\frac{n\pi x}{L}\right)+b_n\sin\left(\frac{n\pi x}{L}\right)\right]"></div>
-        </article>
-
-        <article class="card" data-keywords="Fourier coefficients 係數 an">
-          <div class="card-title">常數與餘弦係數 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="a_0=\frac1L\int_{-L}^{L}f(x)\,dx"></div>
-          <div class="formula" data-tex="a_n=\frac1L\int_{-L}^{L}f(x)\cos\left(\frac{n\pi x}{L}\right)dx"></div>
-        </article>
-
-        <article class="card" data-keywords="Fourier coefficients bn">
-          <div class="card-title">正弦係數 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="b_n=\frac1L\int_{-L}^{L}f(x)\sin\left(\frac{n\pi x}{L}\right)dx"></div>
-        </article>
-
-        <article class="card" data-keywords="even odd function 偶函數 奇函數">
-          <div class="card-title">奇偶函數快速判斷 <span class="priority">★★★</span></div>
-          <div class="formula" data-tex="f(-x)=f(x)\Rightarrow b_n=0"></div>
-          <div class="formula" data-tex="f(-x)=-f(x)\Rightarrow a_0=a_n=0"></div>
-          <div class="note">偶函數只剩餘弦；奇函數只剩正弦。</div>
-        </article>
-
-        <article class="card" data-keywords="orthogonal 正交">
-          <div class="card-title">正交性 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="\int_{-L}^{L}\sin\frac{m\pi x}{L}\sin\frac{n\pi x}{L}\,dx=\begin{cases}0,&amp;m\ne n\\L,&amp;m=n\end{cases}"></div>
-        </article>
-
-        <article class="card" data-keywords="Parseval 巴塞瓦">
-          <div class="card-title">Parseval 等式 <span class="priority">★★</span></div>
-          <div class="formula" data-tex="\frac1L\int_{-L}^{L}|f(x)|^2dx=\frac{a_0^2}{2}+\sum_{n=1}^{\infty}(a_n^2+b_n^2)"></div>
-        </article>
+      <div class="memory-box">
+        <ol>
+          <li><b>二階常係數 ODE：</b>先寫特徵方程，再依實根、重根、複根決定齊次解。</li>
+          <li><b>有初始條件、階躍函數、脈衝函數：</b>優先考慮 Laplace 轉換。</li>
+          <li><b>有週期波形：</b>考慮 Fourier 級數或週期函數的 Laplace 轉換。</li>
+          <li><b>封閉曲面通量：</b>優先考慮 Gauss 散度定理。</li>
+          <li><b>封閉邊界曲線與旋度：</b>優先考慮 Stokes 定理。</li>
+          <li><b>平面封閉曲線積分：</b>優先考慮 Green 定理。</li>
+          <li><b>靜電位、穩態熱傳：</b>檢查是否為 Laplace 方程或 Poisson 方程。</li>
+          <li><b>非週期訊號的頻域分析：</b>優先考慮 Fourier Transform。</li>
+        </ol>
       </div>
     </section>
 
@@ -973,13 +512,15 @@
       <h2 class="section-title">
         <span class="section-number">✓</span>考前背誦順序
       </h2>
+
       <div class="memory-box">
         <ol>
-          <li><b>第一優先：</b>微分表、積分表、分部積分及換元積分。</li>
-          <li><b>第二優先：</b>Taylor 展開、二階常係數微分方程。</li>
-          <li><b>第三優先：</b>Laplace 基本表、微分性質、平移與終值定理。</li>
-          <li><b>第四優先：</b>梯度、散度、旋度，以及 Green、Gauss、Stokes。</li>
-          <li><b>第五優先：</b>Fourier 係數、奇偶函數判斷。</li>
+          <li><b>第一優先：</b>微分表、積分表、換元積分、分部積分、部分分式。</li>
+          <li><b>第二優先：</b>Taylor 展開、級數收斂、二階常係數微分方程。</li>
+          <li><b>第三優先：</b>Laplace 基本表、導數性質、平移、摺積與終值定理。</li>
+          <li><b>第四優先：</b>梯度、散度、旋度、Green、Gauss、Stokes 定理。</li>
+          <li><b>第五優先：</b>Fourier 係數、奇偶函數、Fourier Transform 性質。</li>
+          <li><b>第六優先：</b>Laplace／Poisson／熱傳導／波動方程與分離變數法。</li>
         </ol>
       </div>
     </section>
@@ -990,10 +531,230 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+
   <script>
+    const sections = [
+      {
+        id: "limits",
+        no: "1",
+        title: "極限與等價無窮小",
+        cards: [
+          ["基本三角極限", "★★★", ["\\lim_{x\\to0}\\frac{\\sin x}{x}=1"], "角度必須使用弧度。", "極限 sin x over x"],
+          ["餘弦極限", "★★★", ["\\lim_{x\\to0}\\frac{1-\\cos x}{x^2}=\\frac12"], "", "極限 cos"],
+          ["自然指數定義", "★★★", ["\\lim_{x\\to0}(1+x)^{1/x}=e"], "等價形式：\\(\\lim_{n\\to\\infty}(1+\\frac1n)^n=e\\)。", "指數 e 極限"],
+          ["常用等價無窮小", "★★★", ["\\sin x\\sim x,\\quad\\tan x\\sim x,\\quad1-\\cos x\\sim\\frac{x^2}{2}"], "僅適用於乘除型極限，不可任意用於加減。", "等價無窮小 small angle"],
+          ["指數與對數等價式", "★★", ["e^x-1\\sim x,\\quad\\ln(1+x)\\sim x,\\quad a^x-1\\sim x\\ln a"], "", "ln log exp 等價無窮小"],
+          ["洛必達法則", "★★★", ["\\lim_{x\\to a}\\frac{f(x)}{g(x)}=\\lim_{x\\to a}\\frac{f'(x)}{g'(x)}"], "限於 \\(\\frac00\\) 或 \\(\\frac{\\infty}{\\infty}\\) 型；其他型態要先轉換。", "洛必達 lhopital"]
+        ]
+      },
+      {
+        id: "derivatives",
+        no: "2",
+        title: "微分公式",
+        cards: [
+          ["三大運算法則", "★★★", ["(uv)'=u'v+uv'", "\\left(\\frac uv\\right)'=\\frac{u'v-uv'}{v^2}", "\\frac{d}{dx}f(g(x))=f'(g(x))g'(x)"], "", "乘法 商法則 chain rule 鏈鎖律"],
+          ["冪次函數", "★★★", ["\\frac{d}{dx}x^n=nx^{n-1}", "\\frac{d}{dx}u^n=nu^{n-1}u'"], "", "冪次 power"],
+          ["指數函數", "★★★", ["\\frac{d}{dx}e^x=e^x,\\qquad\\frac{d}{dx}a^x=a^x\\ln a", "\\frac{d}{dx}e^u=e^u u'"], "", "指數 exponential"],
+          ["對數函數", "★★★", ["\\frac{d}{dx}\\ln x=\\frac1x", "\\frac{d}{dx}\\ln|u|=\\frac{u'}u", "\\frac{d}{dx}\\log_a x=\\frac1{x\\ln a}"], "", "對數 ln log"],
+          ["三角函數微分", "★★★", ["(\\sin x)'=\\cos x,\\quad(\\cos x)'=-\\sin x", "(\\tan x)'=\\sec^2x,\\quad(\\cot x)'=-\\csc^2x", "(\\sec x)'=\\sec x\\tan x"], "", "三角函數 sin cos tan sec"],
+          ["反三角函數微分", "★★", ["\\frac{d}{dx}\\sin^{-1}x=\\frac1{\\sqrt{1-x^2}}", "\\frac{d}{dx}\\tan^{-1}x=\\frac1{1+x^2}", "\\frac{d}{dx}\\cos^{-1}x=-\\frac1{\\sqrt{1-x^2}}"], "", "反三角 inverse arcsin arctan"],
+          ["雙曲函數", "★★", ["(\\sinh x)'=\\cosh x,\\quad(\\cosh x)'=\\sinh x", "\\cosh^2x-\\sinh^2x=1"], "", "雙曲線 sinh cosh tanh"],
+          ["隱函數微分", "★★", ["F(x,y)=0\\Rightarrow\\frac{dy}{dx}=-\\frac{F_x}{F_y}"], "", "隱函數 implicit"],
+          ["極值判定", "★★", ["f'(x_0)=0", "f''(x_0)>0\\Rightarrow\\text{極小},\\quad f''(x_0)<0\\Rightarrow\\text{極大}"], "", "極值 最大 最小 二階導數"]
+        ]
+      },
+      {
+        id: "series",
+        no: "3",
+        title: "Taylor、Maclaurin 與無窮級數",
+        cards: [
+          ["Taylor 展開式", "★★★", ["f(x)=\\sum_{n=0}^{\\infty}\\frac{f^{(n)}(a)}{n!}(x-a)^n"], "取 \\(a=0\\) 即為 Maclaurin 展開。", "Taylor 泰勒 Maclaurin 麥克勞林", "wide"],
+          ["基本 Maclaurin 展開", "★★★", ["e^x=1+x+\\frac{x^2}{2!}+\\frac{x^3}{3!}+\\cdots", "\\sin x=x-\\frac{x^3}{3!}+\\frac{x^5}{5!}-\\cdots", "\\cos x=1-\\frac{x^2}{2!}+\\frac{x^4}{4!}-\\cdots"], "", "exponential sin cos series"],
+          ["對數與二項式展開", "★★", ["\\ln(1+x)=x-\\frac{x^2}{2}+\\frac{x^3}{3}-\\cdots", "(1+x)^\\alpha=1+\\alpha x+\\frac{\\alpha(\\alpha-1)}{2!}x^2+\\cdots"], "收斂範圍必須依題目另外檢查。", "ln log binomial 二項式"],
+          ["Euler 公式", "★★★", ["e^{j\\theta}=\\cos\\theta+j\\sin\\theta", "\\cos\\theta=\\frac{e^{j\\theta}+e^{-j\\theta}}2", "\\sin\\theta=\\frac{e^{j\\theta}-e^{-j\\theta}}{2j}"], "", "Euler 歐拉公式 complex"],
+          ["等比級數", "★★★", ["\\sum_{n=0}^{\\infty}ar^n=\\frac{a}{1-r},\\qquad |r|<1"], "", "等比級數 geometric series 收斂"],
+          ["p-級數", "★★★", ["\\sum_{n=1}^{\\infty}\\frac1{n^p}\\text{ 收斂}\\iff p>1"], "", "p series p級數 收斂"],
+          ["比值判別法", "★★★", ["L=\\lim_{n\\to\\infty}\\left|\\frac{a_{n+1}}{a_n}\\right|", "L<1:\\text{收斂},\\qquad L>1:\\text{發散}"], "", "比值判別法 ratio test"],
+          ["根值判別法", "★★", ["L=\\lim_{n\\to\\infty}\\sqrt[n]{|a_n|}", "L<1:\\text{收斂},\\qquad L>1:\\text{發散}"], "", "根值判別法 root test"],
+          ["Taylor 餘項", "★★", ["R_n(x)=\\frac{f^{(n+1)}(\\xi)}{(n+1)!}(x-a)^{n+1}"], "\\(\\xi\\) 位於 \\(a\\) 與 \\(x\\) 之間，可估算近似誤差。", "Taylor remainder 餘項 誤差"]
+        ]
+      },
+      {
+        id: "integrals",
+        no: "4",
+        title: "積分公式與技巧",
+        cards: [
+          ["冪次積分", "★★★", ["\\int x^n\\,dx=\\frac{x^{n+1}}{n+1}+C,\\qquad n\\ne-1"], "", "冪次 積分 power"],
+          ["對數型積分", "★★★", ["\\int\\frac1x\\,dx=\\ln|x|+C", "\\int\\frac{f'(x)}{f(x)}\\,dx=\\ln|f(x)|+C"], "", "一除以 x ln 積分"],
+          ["指數函數積分", "★★★", ["\\int e^{ax}\\,dx=\\frac{e^{ax}}a+C,\\qquad a\\ne0", "\\int a^x\\,dx=\\frac{a^x}{\\ln a}+C,\\qquad a>0,\\ a\\ne1"], "", "指數 積分 exponential"],
+          ["三角函數積分", "★★★", ["\\int\\sin ax\\,dx=-\\frac1a\\cos ax+C", "\\int\\cos ax\\,dx=\\frac1a\\sin ax+C", "\\int\\sec^2ax\\,dx=\\frac1a\\tan ax+C"], "", "sin cos tan sec 積分"],
+          ["其餘三角積分", "★★", ["\\int\\sec x\\tan x\\,dx=\\sec x+C", "\\int\\csc x\\cot x\\,dx=-\\csc x+C", "\\int\\tan x\\,dx=-\\ln|\\cos x|+C", "\\int\\sec x\\,dx=\\ln|\\sec x+\\tan x|+C"], "", "sec tan csc cot 積分"],
+          ["反三角型積分", "★★★", ["\\int\\frac{dx}{x^2+a^2}=\\frac1a\\tan^{-1}\\frac xa+C", "\\int\\frac{dx}{\\sqrt{a^2-x^2}}=\\sin^{-1}\\frac xa+C"], "", "反正切 反三角 積分"],
+          ["分部積分", "★★★", ["\\int u\\,dv=uv-\\int v\\,du"], "選 \\(u\\) 口訣：反三角、對數、代數、三角、指數。", "分部積分 integration by parts"],
+          ["換元積分", "★★★", ["u=g(x)\\Rightarrow\\int f(g(x))g'(x)\\,dx=\\int f(u)\\,du"], "", "換元法 substitution"],
+          ["部分分式分解", "★★★", ["\\frac{P(x)}{(x-a)(x-b)}=\\frac{A}{x-a}+\\frac{B}{x-b}", "\\frac{P(x)}{(x-a)^n}=\\frac{A_1}{x-a}+\\frac{A_2}{(x-a)^2}+\\cdots+\\frac{A_n}{(x-a)^n}"], "適用於有理函數積分及反 Laplace；分子次數需低於分母。", "部分分式 partial fraction 偏分式"],
+          ["根式三角代換", "★★", ["\\sqrt{a^2-x^2}:\\quad x=a\\sin\\theta", "\\sqrt{a^2+x^2}:\\quad x=a\\tan\\theta", "\\sqrt{x^2-a^2}:\\quad x=a\\sec\\theta"], "", "三角代換 trig substitution 根號積分"],
+          ["三角恆等式", "★★★", ["\\sin^2x=\\frac{1-\\cos2x}{2},\\quad\\cos^2x=\\frac{1+\\cos2x}{2}", "\\sin x\\cos x=\\frac12\\sin2x"], "", "三角恆等式 半角 平方"],
+          ["指數乘三角積分", "★★", ["\\int e^{ax}\\sin bx\\,dx=\\frac{e^{ax}}{a^2+b^2}(a\\sin bx-b\\cos bx)+C", "\\int e^{ax}\\cos bx\\,dx=\\frac{e^{ax}}{a^2+b^2}(a\\cos bx+b\\sin bx)+C"], "", "指數乘三角 積分"],
+          ["微積分基本定理", "★★★", ["\\frac{d}{dx}\\int_a^x f(t)\\,dt=f(x)", "\\int_a^b f'(x)\\,dx=f(b)-f(a)"], "", "微積分基本定理 fundamental theorem"],
+          ["Gamma 函數", "★", ["\\Gamma(\\alpha)=\\int_0^\\infty x^{\\alpha-1}e^{-x}\\,dx,\\qquad\\alpha>0", "\\Gamma(n+1)=n\\Gamma(n),\\quad\\Gamma(n)=(n-1)!", "\\Gamma\\left(\\frac12\\right)=\\sqrt\\pi"], "", "gamma function Gamma 階乘"]
+        ]
+      },
+      {
+        id: "multivariable",
+        no: "5",
+        title: "多變數微積分",
+        cards: [
+          ["全微分", "★★★", ["dz=\\frac{\\partial z}{\\partial x}dx+\\frac{\\partial z}{\\partial y}dy"], "", "全微分 total differential partial 偏微分"],
+          ["多變數鏈鎖律", "★★★", ["\\frac{dz}{dt}=\\frac{\\partial z}{\\partial x}\\frac{dx}{dt}+\\frac{\\partial z}{\\partial y}\\frac{dy}{dt}"], "", "多變數 chain rule 鏈鎖律"],
+          ["二變數極值判定", "★★", ["D=f_{xx}f_{yy}-(f_{xy})^2"], "\\(D>0,f_{xx}>0\\)：極小；\\(D>0,f_{xx}<0\\)：極大；\\(D<0\\)：鞍點。", "二變數 極值 Hessian"],
+          ["Jacobian", "★★★", ["\\frac{\\partial(x,y)}{\\partial(u,v)}=\\begin{vmatrix}x_u&x_v\\\\y_u&y_v\\end{vmatrix}", "dx\\,dy=\\left|\\frac{\\partial(x,y)}{\\partial(u,v)}\\right|du\\,dv"], "", "Jacobian 雅可比 座標變換"],
+          ["面積與體積元素", "★★★", ["dA=r\\,dr\\,d\\theta", "dV_{\\mathrm{cyl}}=r\\,dr\\,d\\theta\\,dz", "dV_{\\mathrm{sph}}=r^2\\sin\\theta\\,dr\\,d\\theta\\,d\\phi"], "", "polar cylindrical spherical 極座標 柱座標 球座標"],
+          ["重積分", "★★★", ["\\iint_Df(x,y)\\,dA=\\int_a^b\\int_{g_1(x)}^{g_2(x)}f(x,y)\\,dy\\,dx"], "先畫積分區域，再決定積分上下限；必要時交換積分次序。", "二重積分 三重積分 double triple integral"],
+          ["方向導數", "★★", ["D_{\\mathbf u}f=\\nabla f\\cdot\\mathbf u"], "\\(\\mathbf u\\) 必須是單位向量；最大方向導數為 \\(|\\nabla f|\\)。", "方向導數 directional derivative"],
+          ["Lagrange 乘數法", "★★", ["\\nabla f=\\lambda\\nabla g"], "用於具有限制條件 \\(g=\\text{常數}\\) 的極值問題。", "Lagrange multiplier 拉格朗日"]
+        ]
+      },
+      {
+        id: "vector",
+        no: "6",
+        title: "向量分析與電磁學常用定理",
+        cards: [
+          ["梯度 Gradient", "★★★", ["\\nabla f=\\frac{\\partial f}{\\partial x}\\mathbf a_x+\\frac{\\partial f}{\\partial y}\\mathbf a_y+\\frac{\\partial f}{\\partial z}\\mathbf a_z"], "方向為函數增加最快方向。", "gradient 梯度 nabla"],
+          ["散度 Divergence", "★★★", ["\\nabla\\cdot\\mathbf A=\\frac{\\partial A_x}{\\partial x}+\\frac{\\partial A_y}{\\partial y}+\\frac{\\partial A_z}{\\partial z}"], "", "divergence 散度"],
+          ["旋度 Curl", "★★★", ["\\nabla\\times\\mathbf A=\\begin{vmatrix}\\mathbf a_x&\\mathbf a_y&\\mathbf a_z\\\\\\partial_x&\\partial_y&\\partial_z\\\\A_x&A_y&A_z\\end{vmatrix}"], "", "curl 旋度"],
+          ["Laplacian", "★★★", ["\\nabla^2f=\\frac{\\partial^2f}{\\partial x^2}+\\frac{\\partial^2f}{\\partial y^2}+\\frac{\\partial^2f}{\\partial z^2}"], "", "Laplacian 拉普拉斯"],
+          ["線積分", "★★★", ["\\int_Cf\\,ds=\\int_a^bf(\\mathbf r(t))|\\mathbf r'(t)|\\,dt", "\\int_C\\mathbf A\\cdot d\\mathbf l=\\int_a^b\\mathbf A(\\mathbf r(t))\\cdot\\mathbf r'(t)\\,dt"], "", "線積分 line integral"],
+          ["曲面積分與通量", "★★★", ["\\iint_S\\mathbf A\\cdot d\\mathbf S=\\iint_D\\mathbf A\\cdot(\\mathbf r_u\\times\\mathbf r_v)\\,du\\,dv"], "法向量方向必須符合題意；封閉曲面可優先考慮 Gauss 定理。", "曲面積分 surface integral 通量"],
+          ["重要向量恆等式", "★★★", ["\\nabla\\times(\\nabla f)=0", "\\nabla\\cdot(\\nabla\\times\\mathbf A)=0", "\\nabla\\times(\\nabla\\times\\mathbf A)=\\nabla(\\nabla\\cdot\\mathbf A)-\\nabla^2\\mathbf A"], "", "vector identity 向量恆等式"],
+          ["Green 定理", "★★★", ["\\oint_C(P\\,dx+Q\\,dy)=\\iint_D\\left(\\frac{\\partial Q}{\\partial x}-\\frac{\\partial P}{\\partial y}\\right)dA"], "", "Green 格林定理"],
+          ["Gauss 散度定理", "★★★", ["\\oiint_S\\mathbf A\\cdot d\\mathbf S=\\iiint_V(\\nabla\\cdot\\mathbf A)\\,dV"], "封閉曲面通量等於體積內散度積分。", "Gauss divergence theorem 高斯 散度定理"],
+          ["Stokes 定理", "★★★", ["\\oint_C\\mathbf A\\cdot d\\mathbf l=\\iint_S(\\nabla\\times\\mathbf A)\\cdot d\\mathbf S"], "", "Stokes 史托克斯"],
+          ["三大定理記憶法", "★★★", [], "<b>Green：</b>平面邊界線積分 ↔ 平面區域積分。<br><b>Stokes：</b>邊界線積分 ↔ 曲面旋度積分。<br><b>Gauss：</b>封閉曲面通量 ↔ 體積散度積分。", "Green Gauss Stokes 記憶", "wide"]
+        ]
+      },
+      {
+        id: "ode",
+        no: "7",
+        title: "常微分方程式 ODE",
+        cards: [
+          ["可分離變數", "★★★", ["\\frac{dy}{dx}=g(x)h(y)\\Rightarrow\\int\\frac{dy}{h(y)}=\\int g(x)\\,dx+C"], "", "一階可分離 separable"],
+          ["一階線性方程", "★★★", ["y'+P(x)y=Q(x)", "\\mu(x)=e^{\\int P(x)\\,dx}", "y=\\frac1\\mu\\left(\\int\\mu Q\\,dx+C\\right)"], "", "一階線性 integrating factor 積分因子"],
+          ["Bernoulli 方程", "★★", ["y'+Py=Qy^n,\\qquad v=y^{1-n}"], "令 \\(v=y^{1-n}\\) 後可化成一階線性方程。", "Bernoulli 柏努力 微分方程"],
+          ["二階常係數齊次方程", "★★★", ["ay''+by'+cy=0\\Rightarrow ar^2+br+c=0"], "", "二階常係數 characteristic 特徵方程"],
+          ["相異實根", "★★★", ["r_1\\ne r_2\\Rightarrow y=C_1e^{r_1x}+C_2e^{r_2x}"], "", "相異實根 real roots"],
+          ["重根", "★★★", ["r_1=r_2=r\\Rightarrow y=(C_1+C_2x)e^{rx}"], "", "重根 repeated root"],
+          ["共軛複數根", "★★★", ["r=\\alpha\\pm j\\beta\\Rightarrow y=e^{\\alpha x}(C_1\\cos\\beta x+C_2\\sin\\beta x)"], "", "複數根 complex root"],
+          ["非齊次通解", "★★★", ["y=y_c+y_p"], "齊次解加特解；待定係數法遇到重複型態時，試解需乘上適當次方的 \\(x\\)。", "非齊次 particular complementary"],
+          ["Euler-Cauchy 方程", "★★", ["ax^2y''+bxy'+cy=0,\\qquad y=x^m"], "代入後求關於 \\(m\\) 的特徵方程。", "Euler Cauchy equidimensional"],
+          ["Wronskian", "★★", ["W(y_1,y_2)=\\begin{vmatrix}y_1&y_2\\\\y_1'&y_2'\\end{vmatrix}"], "若在區間內 \\(W\\ne0\\)，則兩解線性獨立。", "Wronskian 行列式 線性獨立"],
+          ["參數變易法", "★★", ["y''+P(x)y'+Q(x)y=R(x)", "y_p=-y_1\\int\\frac{y_2R}{W}\\,dx+y_2\\int\\frac{y_1R}{W}\\,dx"], "適合處理待定係數法不容易處理的非齊次項。", "variation parameters 參數變易法"]
+        ]
+      },
+      {
+        id: "pde",
+        no: "8",
+        title: "偏微分方程 PDE 與分離變數法",
+        cards: [
+          ["Laplace 方程", "★★★", ["\\nabla^2V=0"], "靜電位、無自由電荷區域、穩態熱傳導常見。", "Laplace equation 拉普拉斯方程 PDE"],
+          ["Poisson 方程", "★★★", ["\\nabla^2V=-\\frac{\\rho_v}{\\varepsilon}"], "電磁學中含體積電荷密度 \\(\\rho_v\\) 的靜電場問題。", "Poisson equation 卜瓦松方程 PDE"],
+          ["一維熱傳導方程", "★★", ["\\frac{\\partial u}{\\partial t}=\\alpha^2\\frac{\\partial^2u}{\\partial x^2}"], "", "heat equation 熱方程 diffusion"],
+          ["一維波動方程", "★★★", ["\\frac{\\partial^2u}{\\partial t^2}=v^2\\frac{\\partial^2u}{\\partial x^2}"], "傳輸線、振動、波動與電磁波相關問題的重要模型。", "wave equation 波動方程"],
+          ["分離變數法", "★★★", ["u(x,t)=X(x)T(t)"], "代回 PDE 後分離為兩個 ODE，再利用邊界條件求特徵值。", "separation variables 分離變數"]
+        ]
+      },
+      {
+        id: "laplace",
+        no: "9",
+        title: "Laplace 轉換",
+        cards: [
+          ["Laplace 定義", "★★★", ["\\mathcal L\\{f(t)\\}=F(s)=\\int_0^\\infty e^{-st}f(t)\\,dt"], "", "Laplace definition 定義"],
+          ["基本轉換", "★★★", ["\\mathcal L\\{1\\}=\\frac1s", "\\mathcal L\\{t^n\\}=\\frac{n!}{s^{n+1}}"], "", "Laplace 1 t power"],
+          ["指數、正弦、餘弦", "★★★", ["\\mathcal L\\{e^{at}\\}=\\frac1{s-a}", "\\mathcal L\\{\\sin\\omega t\\}=\\frac{\\omega}{s^2+\\omega^2}", "\\mathcal L\\{\\cos\\omega t\\}=\\frac{s}{s^2+\\omega^2}"], "", "Laplace exponential sin cos"],
+          ["雙曲函數", "★★", ["\\mathcal L\\{\\sinh at\\}=\\frac{a}{s^2-a^2}", "\\mathcal L\\{\\cosh at\\}=\\frac{s}{s^2-a^2}"], "", "Laplace sinh cosh hyperbolic"],
+          ["導數轉換", "★★★", ["\\mathcal L\\{f'(t)\\}=sF(s)-f(0)", "\\mathcal L\\{f''(t)\\}=s^2F(s)-sf(0)-f'(0)"], "", "Laplace derivative 微分 初始值"],
+          ["積分與 t 乘函數", "★★", ["\\mathcal L\\left\\{\\int_0^tf(\\tau)\\,d\\tau\\right\\}=\\frac{F(s)}s", "\\mathcal L\\{tf(t)\\}=-\\frac{dF(s)}{ds}", "\\mathcal L\\{t^nf(t)\\}=(-1)^n\\frac{d^nF(s)}{ds^n}"], "", "Laplace integration t f(t) s 微分"],
+          ["第一平移定理", "★★★", ["\\mathcal L\\{e^{at}f(t)\\}=F(s-a)"], "", "first shifting s shift 平移"],
+          ["單位階躍與第二平移", "★★★", ["\\mathcal L\\{u(t-a)f(t-a)\\}=e^{-as}F(s)"], "", "unit step heaviside second shifting"],
+          ["摺積定理", "★★★", ["(f*g)(t)=\\int_0^tf(\\tau)g(t-\\tau)\\,d\\tau", "\\mathcal L\\{f*g\\}=F(s)G(s)"], "", "convolution 摺積 卷積"],
+          ["週期函數轉換", "★★★", ["f(t+T)=f(t)\\Rightarrow\\mathcal L\\{f(t)\\}=\\frac{\\int_0^Te^{-st}f(t)\\,dt}{1-e^{-sT}}"], "", "Laplace periodic 週期函數"],
+          ["初值與終值定理", "★★★", ["f(0^+)=\\lim_{s\\to\\infty}sF(s)", "f(\\infty)=\\lim_{s\\to0}sF(s)"], "終值定理：\\(sF(s)\\) 的極點需位於左半平面，原點允許單根。", "initial final value theorem 初值 終值"],
+          ["反 Laplace 實戰流程", "★★★", [], "<ol><li>整理為 \\(F(s)\\)。</li><li>因式分解分母。</li><li>進行部分分式分解。</li><li>查表、套用平移或摺積定理。</li></ol>", "Laplace inverse 反轉換 部分分式"]
+        ]
+      },
+      {
+        id: "fourier",
+        no: "10",
+        title: "Fourier 級數",
+        cards: [
+          ["週期 2L 的 Fourier 級數", "★★★", ["f(x)=\\frac{a_0}{2}+\\sum_{n=1}^{\\infty}\\left[a_n\\cos\\left(\\frac{n\\pi x}{L}\\right)+b_n\\sin\\left(\\frac{n\\pi x}{L}\\right)\\right]"], "", "Fourier series 傅立葉級數", "wide"],
+          ["Fourier 係數", "★★★", ["a_0=\\frac1L\\int_{-L}^{L}f(x)\\,dx", "a_n=\\frac1L\\int_{-L}^{L}f(x)\\cos\\left(\\frac{n\\pi x}{L}\\right)dx", "b_n=\\frac1L\\int_{-L}^{L}f(x)\\sin\\left(\\frac{n\\pi x}{L}\\right)dx"], "", "Fourier coefficients 係數 an bn"],
+          ["奇偶函數快速判斷", "★★★", ["f(-x)=f(x)\\Rightarrow b_n=0", "f(-x)=-f(x)\\Rightarrow a_0=a_n=0"], "偶函數只剩餘弦；奇函數只剩正弦。", "even odd function 偶函數 奇函數"],
+          ["正交性", "★★", ["\\int_{-L}^{L}\\sin\\frac{m\\pi x}{L}\\sin\\frac{n\\pi x}{L}\\,dx=\\begin{cases}0,&m\\ne n\\\\L,&m=n\\end{cases}"], "", "orthogonal 正交"],
+          ["Parseval 等式", "★★", ["\\frac1L\\int_{-L}^{L}|f(x)|^2dx=\\frac{a_0^2}{2}+\\sum_{n=1}^{\\infty}(a_n^2+b_n^2)"], "", "Parseval 巴塞瓦"]
+        ]
+      },
+      {
+        id: "fourier-transform",
+        no: "11",
+        title: "Fourier Transform",
+        cards: [
+          ["Fourier Transform 定義", "★★★", ["F(\\omega)=\\int_{-\\infty}^{\\infty}f(t)e^{-j\\omega t}\\,dt", "f(t)=\\frac1{2\\pi}\\int_{-\\infty}^{\\infty}F(\\omega)e^{j\\omega t}\\,d\\omega"], "", "Fourier transform 傅立葉轉換 定義", "wide"],
+          ["微分性質", "★★★", ["\\mathcal F\\left\\{\\frac{df}{dt}\\right\\}=j\\omega F(\\omega)", "\\mathcal F\\left\\{\\frac{d^nf}{dt^n}\\right\\}=(j\\omega)^nF(\\omega)"], "", "Fourier transform derivative 微分性質"],
+          ["時間與頻率平移", "★★★", ["f(t-t_0)\\Longleftrightarrow e^{-j\\omega t_0}F(\\omega)", "e^{j\\omega_0t}f(t)\\Longleftrightarrow F(\\omega-\\omega_0)"], "", "Fourier transform shift 平移"],
+          ["摺積定理", "★★★", ["f(t)*g(t)\\Longleftrightarrow F(\\omega)G(\\omega)", "f(t)g(t)\\Longleftrightarrow\\frac1{2\\pi}F(\\omega)*G(\\omega)"], "", "Fourier transform convolution 摺積"],
+          ["Parseval 能量定理", "★★", ["\\int_{-\\infty}^{\\infty}|f(t)|^2dt=\\frac1{2\\pi}\\int_{-\\infty}^{\\infty}|F(\\omega)|^2d\\omega"], "", "Parseval Fourier transform 能量"]
+        ]
+      }
+    ];
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function createCard(card) {
+      const [title, priority, formulas = [], note = "", keywords = "", extraClass = ""] = card;
+
+      const formulaHtml = formulas.map(tex => {
+        return `<div class="formula" data-tex="${escapeHtml(tex)}"></div>`;
+      }).join("");
+
+      return `
+        <article class="card ${extraClass}" data-keywords="${escapeHtml(keywords)}">
+          <div class="card-title">
+            <span>${title}</span>
+            <span class="priority">${priority}</span>
+          </div>
+          ${formulaHtml}
+          ${note ? `<div class="note">${note}</div>` : ""}
+        </article>
+      `;
+    }
+
+    function renderSections() {
+      const content = document.getElementById("content");
+
+      content.innerHTML = sections.map(section => `
+        <section id="${section.id}">
+          <h2 class="section-title">
+            <span class="section-number">${section.no}</span>${section.title}
+          </h2>
+          <div class="grid">
+            ${section.cards.map(createCard).join("")}
+          </div>
+        </section>
+      `).join("");
+    }
+
     function renderMath() {
-      document.querySelectorAll("[data-tex]").forEach(function (element) {
+      document.querySelectorAll("[data-tex]").forEach(element => {
         const expression = element.getAttribute("data-tex");
+
         try {
           katex.render(expression, element, {
             throwOnError: false,
@@ -1006,63 +767,112 @@
     }
 
     function updateCount() {
-      const cards = Array.from(document.querySelectorAll(".card"));
+      const cards = [...document.querySelectorAll(".card")];
       const visible = cards.filter(card => !card.classList.contains("hidden"));
+
       document.getElementById("resultCount").textContent =
-        "目前顯示 " + visible.length + " / " + cards.length + " 張公式卡";
+        `目前顯示 ${visible.length} / ${cards.length} 張公式卡`;
     }
+
+    function updateSectionVisibility() {
+      document.querySelectorAll("main section").forEach(section => {
+        if (section.id === "strategy" || section.id === "memory") return;
+
+        const cards = section.querySelectorAll(".card");
+        const visibleCards = section.querySelectorAll(".card:not(.hidden)");
+
+        if (cards.length > 0) {
+          section.style.display = visibleCards.length === 0 ? "none" : "";
+        }
+      });
+    }
+
+    function resetAllFilters() {
+      document.getElementById("searchInput").value = "";
+
+      document.querySelectorAll(".card").forEach(card => {
+        card.classList.remove("hidden");
+      });
+
+      document.querySelectorAll("main section").forEach(section => {
+        section.style.display = "";
+      });
+
+      updateCount();
+    }
+
+    function applyTheme(isDark) {
+      document.body.classList.toggle("dark", isDark);
+      document.getElementById("darkButton").textContent =
+        isDark ? "淺色模式" : "深色模式";
+    }
+
+    renderSections();
+    renderMath();
+
+    applyTheme(localStorage.getItem("engineering-math-theme") === "dark");
+    updateCount();
 
     document.getElementById("searchInput").addEventListener("input", function () {
       const keyword = this.value.trim().toLowerCase();
 
-      document.querySelectorAll(".card").forEach(function (card) {
-        const content = (
-          card.textContent + " " +
-          (card.dataset.keywords || "") + " " +
-          Array.from(card.querySelectorAll("[data-tex]"))
-            .map(item => item.dataset.tex)
-            .join(" ")
-        ).toLowerCase();
+      document.querySelectorAll(".card").forEach(card => {
+        const tex = [...card.querySelectorAll("[data-tex]")]
+          .map(item => item.getAttribute("data-tex"))
+          .join(" ");
 
-        card.classList.toggle("hidden", keyword && !content.includes(keyword));
+        const searchableContent = [
+          card.textContent,
+          card.dataset.keywords || "",
+          tex
+        ].join(" ").toLowerCase();
+
+        card.classList.toggle("hidden", keyword !== "" && !searchableContent.includes(keyword));
       });
 
-      document.querySelectorAll("section").forEach(function (section) {
-        if (section.id === "memory") return;
-        const cards = section.querySelectorAll(".card");
-        const visible = section.querySelectorAll(".card:not(.hidden)");
-        section.style.display = cards.length && visible.length === 0 ? "none" : "";
-      });
-
+      updateSectionVisibility();
       updateCount();
     });
 
-    document.getElementById("coverButton").addEventListener("click", function () {
-      document.querySelectorAll(".formula").forEach(function (formula) {
+    document.getElementById("highPriorityButton").addEventListener("click", () => {
+      document.getElementById("searchInput").value = "";
+
+      document.querySelectorAll(".card").forEach(card => {
+        const priority = card.querySelector(".priority")?.textContent || "";
+        card.classList.toggle("hidden", !priority.includes("★★★"));
+      });
+
+      updateSectionVisibility();
+      updateCount();
+    });
+
+    document.getElementById("resetFilterButton").addEventListener("click", resetAllFilters);
+
+    document.getElementById("coverButton").addEventListener("click", () => {
+      document.querySelectorAll(".formula").forEach(formula => {
         formula.classList.add("covered");
       });
     });
 
-    document.getElementById("showButton").addEventListener("click", function () {
-      document.querySelectorAll(".formula").forEach(function (formula) {
+    document.getElementById("showButton").addEventListener("click", () => {
+      document.querySelectorAll(".formula").forEach(formula => {
         formula.classList.remove("covered");
       });
     });
 
-    document.addEventListener("click", function (event) {
+    document.addEventListener("click", event => {
       const formula = event.target.closest(".formula.covered");
-      if (formula) formula.classList.remove("covered");
+
+      if (formula) {
+        formula.classList.remove("covered");
+      }
     });
 
-    document.getElementById("darkButton").addEventListener("click", function () {
-      document.body.classList.toggle("dark");
-      this.textContent = document.body.classList.contains("dark")
-        ? "淺色模式"
-        : "深色模式";
+    document.getElementById("darkButton").addEventListener("click", () => {
+      const isDark = !document.body.classList.contains("dark");
+      applyTheme(isDark);
+      localStorage.setItem("engineering-math-theme", isDark ? "dark" : "light");
     });
-
-    renderMath();
-    updateCount();
   </script>
 </body>
 </html>
